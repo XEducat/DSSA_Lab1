@@ -12,11 +12,11 @@ def matrix_rank(A):
     """Обчислення рангу матриці"""
     return np.linalg.matrix_rank(A)
 
-def gaussian_elimination(A, b):
+def gaussian_elimination(A, B):
     """Розв'язання СЛАР методом Гауса"""
     try:
-        augmented_matrix = np.hstack((A, b.reshape(-1, 1)))
-        n = len(b)
+        augmented_matrix = np.hstack((A, B))  # Об'єднуємо матрицю A та вектор B
+        n = len(B)
         
         for i in range(n):
             # Пошук максимального елемента у стовпці i
@@ -40,31 +40,23 @@ def gaussian_elimination(A, b):
         return str(e)
 
 if __name__ == "__main__":
-    # Перша матриця 2x2
-    A = np.array([[2, 1], [5, 3]])
+    # Матриця A розміру 3x3
+    A = np.array([[-2, -1, -2], [4, -2, 1], [1, 3, -5]])
     print("Матриця A:")
     print(A, "\n")
 
-    # Обробка введення другої матриці розміром 2x1
-    n = A.shape[0]
-    while True:
-        try:
-            print("Введіть вектор B (через пробіл, довжина має бути", n, "):")
-            b_input = input().split()
-            if len(b_input) != n:
-                raise ValueError("Невірна кількість елементів у векторі B")
-            b = np.array(list(map(float, b_input)))
-            break
-        except ValueError as e:
-            print("Помилка вводу:", e, "Спробуйте ще раз.")
+    # Матриця B (вектор) розміру 3x1
+    B = np.array([[1], [5], [3]])
+    print("Матриця B:")
+    print(B, "\n")
     
-    # Втконуємо пошук оберненої матриці
-    print("\n-- Обернена матриця --")
+    # Обчислення оберненої матриці для A
+    print("-- Обернена матриця A --")
     print(inverse_matrix(A))
     
-    # Втконуємо обчислення рангу матриці
-    print("\nРанг матриці:", matrix_rank(A))
+    # Обчислення рангу матриці A
+    print("\nРанг матриці A:", matrix_rank(A))
     
-    # Втконуємо розв'язання СЛАР методом Гауса
-    print("\n-- Розв'язок методом Гауса --")
-    print(gaussian_elimination(A, b))
+    # Розв'язання системи лінійних рівнянь методом Гауса
+    print("\n-- Розв'язок системи рівнянь методом Гауса --")
+    print(gaussian_elimination(A, B))
