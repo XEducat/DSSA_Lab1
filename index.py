@@ -5,7 +5,7 @@ def inverse_matrix(A):
     n = len(A)
     A = A.astype(float)
     C = np.eye(n)  # Створюємо одиничну матрицю для оберненої матриці
-    protocol = []
+    protocol = ["\n\nПротокол обчислення оберненої матриці методом Гаусса:"]
 
     # Формування розширеної матриці (A|I)
     augmented_matrix = np.hstack((A, C))
@@ -50,7 +50,7 @@ def matrix_rank(A):
     """Обчислює ранг матриці за допомогою ступінчастого вигляду"""
     A = A.astype(float)
     n, m = A.shape
-    protocol = []
+    protocol = ["\n\nПротокол обчислення рангу матриці методом Гаусса:"]
     
     for i in range(min(n, m)):
         protocol.append(f"\nКрок #{i+1}")
@@ -68,7 +68,7 @@ def gaussian_elimination_solve(A, B):
         A = A.astype(float)
         B = B.astype(float).flatten()
         n = len(B)
-        protocol = []
+        protocol = ["\n\nПротокол обчислення розв’язків СЛАУ методом Гаусса:"]
 
         for i in range(n):
             protocol.append(f"\nКрок #{i+1}")
@@ -94,13 +94,15 @@ if __name__ == "__main__":
     print("1. Обернена матриця A:")
     inv_A, inv_protocol = inverse_matrix(A)
     print(inv_A)
-    print(f"\nПротокол обчислень:\n {inv_protocol}")
-    
+
     rank, rank_protocol = matrix_rank(A)
     print(f"\n2. Ранг матриці A: {rank}")
-    print(f"\nПротокол обчислень: {rank_protocol}")
-    
+
     print("\n3. Знаходження розв’язків СЛАУ методом Гаусса:")
     solution, protocol = gaussian_elimination_solve(A, B)
     print(f"Розв'язок: {solution}")
-    print(f"\nПротокол обчислень: {protocol}")
+
+    # Виведення протоколів обчислення
+    print(rank_protocol)
+    print(inv_protocol)
+    print(protocol)
